@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.categories');
     }
 
     /**
@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-
+        return view('categories.create');
     }
 
     /**
@@ -35,12 +35,24 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-       $validatedData =  $request->validate([
+       /* $validatedData =  $request->validate([
             'title'=>'required|max:120'
+        ]); */
+        /* Category::create($validatedData);
+        return redirect('admin/categories'); */
+
+        // Validate the request data
+        $request->validate([
+            'title' => 'required|unique:categories|max:255',
         ]);
 
-        Category::create($validatedData);
-        return redirect('admin/categories');
+        // Create a new category
+        $category = new Category();
+        $category->title = $request->input('title');
+        $category->save();
+
+        return redirect()->route('admin.categories')->with('success', 'Category created successfully.');
+
     }
 
     /**
@@ -49,9 +61,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show($id)
     {
-        //
+            // Find the category by id
+            $category = Category::findOrFail($id);
+
+            return view('categories.show', compact('category'));
     }
 
     /**
@@ -60,14 +75,12 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
-        $validatedData =  $request->validate([
-            'title'=>'required|max:120'
-        ]);
+        // Find the category by id
+        $category = Category::findOrFail($id);
 
-        Category::create($validatedData);
-        return redirect('admin/categories');
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -77,14 +90,21 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        $validatedData =  $request->validate([
-            'title'=>'required|max:120'
+        // Find the category by id
+        $category = Category::findOrFail($id);
+
+        // Validate the request data
+        $request->validate([
+            'title' => 'required|unique:categories,title,'.$category->id.'|max:255',
         ]);
 
-        $category->update($validatedData);
-        return redirect('admin/categories');
+        // Update the category
+        $category->title = $request->input('title');
+        $category->save();
+
+        return redirect()->route('admin.categories')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -93,8 +113,14 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+            // Find the category by id
+            $category = Category::findOrFail($id);
+
+            // Delete the category
+            $category->delete();
+
+            return redirect()->route('admin.categories')->with('success', 'Category deleted successfully.');
     }
 }

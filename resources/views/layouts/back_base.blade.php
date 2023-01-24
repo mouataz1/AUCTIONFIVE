@@ -12,12 +12,13 @@
   <!-- CSS Libraries -->
   <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-social/bootstrap-social.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/modules/summernote/summernote-bs4.css')}}">
+    @yield('css')
 
   <!-- Template CSS -->
   <link rel="stylesheet" href="{{asset('backend/assets/css/style.css')}}">
   <link rel="stylesheet" href="{{asset('backend/assets/css/components.css')}}">
 
-  @yield('css')
+
 <!-- Start GA -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
 <script>
@@ -230,13 +231,13 @@
 
   <!-- JS Libraies -->
   <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>
-
+    @yield('js')
   <!-- Page Specific JS File -->
 
   <!-- Template JS File -->
   <script src="{{asset('backend/assets/js/scripts.js')}}"></script>
   <script src="{{asset('backend/assets/js/custom.js')}}"></script>
 
-  @yield('js')
+
 </body>
 </html>

@@ -14,7 +14,7 @@ class BienController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.bienes');
     }
 
     /**
@@ -24,7 +24,7 @@ class BienController extends Controller
      */
     public function create()
     {
-        //
+        return view('bien.create');
     }
 
     /**
@@ -35,7 +35,19 @@ class BienController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'initialPrice' => 'required|numeric',
+            'is_Approved' => 'required|boolean',
+            'is_Sold' => 'required|boolean',
+            'is_Active' => 'required|boolean',
+            'due_at' => 'required|date',
+        ]);
+
+        Bien::create($validatedData);
+
+        return redirect()->route('bien.index')->with('success', 'Bien created successfully.');
     }
 
     /**
@@ -44,9 +56,11 @@ class BienController extends Controller
      * @param  \App\Models\Bien  $bien
      * @return \Illuminate\Http\Response
      */
-    public function show(Bien $bien)
+    public function show($id)
     {
-        //
+        $bien = Bien::findOrFail($id);
+
+        return view('bien.show', compact('bien'));
     }
 
     /**
@@ -55,9 +69,11 @@ class BienController extends Controller
      * @param  \App\Models\Bien  $bien
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bien $bien)
+    public function edit($id)
     {
-        //
+        $bien = Bien::findOrFail($id);
+
+        return view('bien.edit', compact('bien'));
     }
 
     /**
@@ -67,9 +83,21 @@ class BienController extends Controller
      * @param  \App\Models\Bien  $bien
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bien $bien)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'initialPrice' => 'required|numeric',
+            'is_Approved' => 'required|boolean',
+            'is_Sold' => 'required|boolean',
+            'is_Active' => 'required|boolean',
+            'due_at' => 'required|date',
+        ]);
+
+        Bien::whereId($id)->update($validatedData);
+
+        return redirect()->route('bien.index')->with('success', 'Bien updated successfully.');
     }
 
     /**
@@ -78,8 +106,10 @@ class BienController extends Controller
      * @param  \App\Models\Bien  $bien
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bien $bien)
+    public function destroy($id)
     {
-        //
+        Bien::destroy($id);
+
+        return redirect()->route('bien.index')->with('success', 'Bien deleted successfully.');
     }
 }

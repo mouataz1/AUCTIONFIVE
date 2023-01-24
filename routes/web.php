@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BienController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +22,11 @@ Route::get('/', function () {
 });
 
 Route::get('/profile', [ProfileController::class, 'index']);
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/bienes', [BienController::class, 'index']);
+Route::get('/users', [AdminController::class, 'users']);
+Route::get('/encheres', [AdminController::class, 'encheres']);
+
 
 
 
