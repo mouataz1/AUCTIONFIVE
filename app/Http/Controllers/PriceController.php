@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Price;
 use Illuminate\Http\Request;
 
@@ -67,9 +68,9 @@ class PriceController extends Controller
      * @param  \App\Models\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Price $price)
+    public function update(Request $request, $id)
     {
-        //
+       //
     }
 
     /**

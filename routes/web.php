@@ -27,6 +27,10 @@ Route::get('/bienes', [BienController::class, 'index']);
 Route::get('/users', [AdminController::class, 'users']);
 Route::get('/encheres', [AdminController::class, 'encheres']);
 
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('updateProfile');
 
 
 
@@ -63,6 +67,3 @@ Route::get('/encheres', [AdminController::class, 'encheres']);
 
 
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
