@@ -151,22 +151,33 @@ Profile
             </div>
 
             <div class="card">
-                <form method="post" class="needs-validation" novalidate="">
+                <form action="{{route('updateProfilePassword', auth()->user()->id)}}" method="post" class="needs-validation" novalidate="">
+                    @csrf
                   <div class="card-header">
                     <h4>Modifier votre Mot de passe</h4>
                   </div>
+                  @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session()->get('error') }}
+                        </div>
+                    @endif
                   <div class="card-body">
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Anciene mot de pass</label>
-                          <input type="text" class="form-control" value="Ujang" required="">
+                          <input type="password" name="old_password" class="form-control"  required="">
                           <div class="invalid-feedback">
                             entrez l'ancien mot de passe
                           </div>
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Nouveau Mot de pass</label>
-                          <input type="text" class="form-control" value="Maman" required="">
+                          <input type="password" name="password" class="form-control"  required="">
                           <div class="invalid-feedback">
                             entrez votre nouveau mot de passe
                           </div>
@@ -175,7 +186,7 @@ Profile
                       <div class="row">
                         <div class="form-group col-md-7 col-12">
                           <label>Confirmer Le mot de passe</label>
-                          <input type="email" class="form-control" value="ujang@maman.com" required="">
+                          <input type="password" name="password_confirmation" class="form-control"  required="">
                           <div class="invalid-feedback">
                             Confirmer votre mot de passe
                           </div>
