@@ -19,8 +19,27 @@ Categories
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h4>Basic DataTables</h4>
+            <div class="row d-flex w-100">
+                <div class="col-9">
+                    <h4>Liste des categories</h4>
+                </div>
+                <div class="col-3 float-end">
+                    <a href="{{route('newCatPage')}}" class="btn btn-success">Ajouter</a>
+                </div>
+            </div>
+
         </div>
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session()->get('success') }}
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                    <div class="alert alert-danger">
+                        {{ session()->get('error') }}
+                    </div>
+                     @endif
         <div class="card-body">
           <div class="table-responsive">
             <table class="table table-striped" id="table-1">
@@ -36,14 +55,25 @@ Categories
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                @foreach ($categories as $c )
+                    <tr>
                   <td>
-                    1
+                    {{$c->id}}
                   </td>
-                  <td>Create a mobile app</td>
-                  <td><a href="#" class="btn btn-warning">Modifier</a></td>
-                  <td><a href="#" class="btn btn-danger">Suprimer</a></td>
+                  <td>{{$c->title}}</td>
+                  <td><a href="{{route('editCategory', $c->id)}}" class="btn btn-warning">Modifier</a></td>
+                  <td>
+
+                    <form method="POST" action="{{ route('destroyCategory', $c->id) }}">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Suprimer</button>
+                    </form>
+
+                </td>
                 </tr>
+                @endforeach
+
               </tbody>
             </table>
           </div>

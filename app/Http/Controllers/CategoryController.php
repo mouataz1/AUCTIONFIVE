@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.categories');
+        $categories = Category::all();
+        return view('admin.categories', compact('categories'));
     }
 
     /**
@@ -24,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('categories.create');
+        return view('admin.newCategory');
     }
 
     /**
@@ -51,7 +52,7 @@ class CategoryController extends Controller
         $category->title = $request->input('title');
         $category->save();
 
-        return redirect()->route('admin.categories')->with('success', 'Category created successfully.');
+        return redirect()->route('categories')->with('success', 'Category created successfully.');
 
     }
 
@@ -80,7 +81,7 @@ class CategoryController extends Controller
         // Find the category by id
         $category = Category::findOrFail($id);
 
-        return view('categories.edit', compact('category'));
+        return view('admin.updateCategory', compact('category'));
     }
 
     /**
@@ -104,7 +105,7 @@ class CategoryController extends Controller
         $category->title = $request->input('title');
         $category->save();
 
-        return redirect()->route('admin.categories')->with('success', 'Category updated successfully.');
+        return redirect()->route('categories')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -121,6 +122,6 @@ class CategoryController extends Controller
             // Delete the category
             $category->delete();
 
-            return redirect()->route('admin.categories')->with('success', 'Category deleted successfully.');
+            return redirect()->route('categories')->with('success', 'Category deleted successfully.');
     }
 }
