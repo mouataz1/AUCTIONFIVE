@@ -73,7 +73,7 @@ Route::get('/bienes/new', [BienController::class, 'create'])->name('newBien');
 Route::post('/bienes/store', [BienController::class, 'store'])->name('storeBien');
 Route::get('/bienes/edit/{id}', [BienController::class, 'edit'])->name('editBien');
 Route::post('/bienes/update/{id}', [BienController::class, 'update'])->name('updateBien');
-Route::post('/bienes/delete/{id}', [BienController::class, 'delete'])->name('deleteBien');
+Route::get('/bienes/delete/{id}', [BienController::class, 'destroy'])->name('deleteBien');
 
 
 

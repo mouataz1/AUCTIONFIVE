@@ -83,19 +83,17 @@ class BienController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'initialPrice' => 'required|numeric',
-            'is_Approved' => 'required|boolean',
-            'is_Sold' => 'required|boolean',
-            'is_Active' => 'required|boolean',
             'due_at' => 'required|date',
         ]);
 
         Bien::whereId($id)->update($validatedData);
 
-        return redirect()->route('user.bienes')->with('success', 'Bien updated successfully.');
+        return redirect()->route('biens')->with('success', 'Bien updated successfully.');
     }
 
     /**
@@ -106,8 +104,9 @@ class BienController extends Controller
      */
     public function destroy($id)
     {
-        Bien::destroy($id);
+        $bien = Bien::findOrFail($id);
+        $bien->delete();
 
-        return redirect()->route('user.bienes')->with('success', 'Bien deleted successfully.');
+        return redirect()->route('biens')->with('success', 'Bien deleted successfully.');
     }
 }

@@ -16,23 +16,34 @@ Categories
     <div class="section">
         <div class="section-body">
 <div class="card">
-    <form action="{{route('storeCategory')}}" method="POST">
+    <form action="{{route('updateBien', $bien->id)}}" method="POST">
         @csrf
         <div class="card-header">
-      <h4>Modifier Le bien</h4>
-    </div>
-    <div class="card-body">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail4">Titre du category</label>
-          <input type="text" name="title" class="form-control" id="inputEmail4" placeholder="titre">
+            <h4>Modifier le Bien</h4>
         </div>
-      </div>
-
-    </div>
-    <div class="card-footer">
-      <button type="submit" class="btn btn-primary">Ajouter</button>
-    </div>
+        <div class="card-body">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Titre du bien</label>
+                    <input type="text" name="title" class="form-control" id="inputEmail4" value="{{$bien->title}}" placeholder="titre" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="description">Description</label>
+                    <textarea name="description" class="form-control" id="description"   required > {{$bien->description}}</textarea>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="initialPrice">Prix initial</label>
+                    <input type="number" name="initialPrice" class="form-control" value="{{$bien->initialPrice}}"  id="initialPrice" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="due_at">Date d'expiration</label>
+                    <input type="date" name="due_at" class="form-control" value="{{$bien->due_at}}"  id="due_at" required>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+        </div>
     </form>
 
   </div>

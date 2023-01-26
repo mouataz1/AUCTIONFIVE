@@ -74,8 +74,8 @@ Bienes
                   </td>
                   <td>
                     <a href="#" class="btn btn-success">Afficher</a>
-                    <a href="#" class="btn btn-warning">Modifier</a>
-                    <a href="#" class="btn btn-danger">Suprimer</a>
+                    <a href="{{route('editBien', $b->id)}}" class="btn btn-warning">Modifier</a>
+                    <a href="{{route('deleteBien', $b->id)}}" class="btn btn-danger">Suprimer</a>
                   </td>
 
                 </tr>
