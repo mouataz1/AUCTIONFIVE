@@ -19,7 +19,14 @@ Bienes
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h4>Liste des Bienes</h4>
+            <div class="row d-flex w-100">
+                <div class="col-9">
+                    <h4>Liste des Biens</h4>
+                </div>
+                <div class="col-3 float-end">
+                    <a href="{{route('newBien')}}" class="btn btn-success">Ajouter</a>
+                </div>
+            </div>
         </div>
         <div class="card-body">
           <div class="table-responsive">
@@ -39,16 +46,32 @@ Bienes
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                @foreach ($biens as $b )
+                    <tr>
                   <td>
                     1
                   </td>
-                  <td>Create a mobile app</td>
-                  <td>Create a mobile app</td>
-                  <td>25/01/2023</td>
-                  <td>31/01/2023</td>
-                  <td>125 DH</td>
-                  <td>Activé</td>
+                  <td>{{$b->title}}</td>
+                  <td>{{$b->description}}</td>
+                  <td> {{ date('j F, Y', strtotime($b->created_at))}}</td>
+                  <td>{{ date('j F, Y', strtotime($b->due_at))}}</td>
+                  <td>{{$b->initialPrice}} DH</td>
+                  <td>
+                    @if ($b->is_Approved)
+                        @if ($b->is_active)
+                            @if ($b->is_sold)
+                                Vondu
+                                @else
+                                Disponible
+                            @endif
+                            @else
+                            Non Activé
+                        @endif
+
+                    @elseif ($b->is_Approved != true)
+                    En atten
+                    @endif
+                  </td>
                   <td>
                     <a href="#" class="btn btn-success">Afficher</a>
                     <a href="#" class="btn btn-warning">Modifier</a>
@@ -56,6 +79,8 @@ Bienes
                   </td>
 
                 </tr>
+                @endforeach
+
               </tbody>
             </table>
           </div>

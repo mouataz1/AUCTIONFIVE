@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->float('initialPrice');
-            $table->boolean('is_Approved');
-            $table->boolean('is_sold');
-            $table->boolean('is_active');
+            $table->boolean('is_Approved')->default(false);
+            $table->boolean('is_sold')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->dateTime('due_at');
             $table->timestamps();
         });

@@ -14,7 +14,8 @@ class BienController extends Controller
      */
     public function index()
     {
-        return view('user.bienes');
+        $biens = Bien::all();
+        return view('user.bienes', compact('biens'));
     }
 
     /**
@@ -24,7 +25,7 @@ class BienController extends Controller
      */
     public function create()
     {
-        return view('bien.create');
+        return view('user.bien.newBien');
     }
 
     /**
@@ -39,15 +40,12 @@ class BienController extends Controller
             'title' => 'required|max:255',
             'description' => 'required',
             'initialPrice' => 'required|numeric',
-            'is_Approved' => 'required|boolean',
-            'is_Sold' => 'required|boolean',
-            'is_Active' => 'required|boolean',
             'due_at' => 'required|date',
         ]);
 
         Bien::create($validatedData);
 
-        return redirect()->route('bien.index')->with('success', 'Bien created successfully.');
+        return redirect()->route('biens')->with('success', 'Bien created successfully.');
     }
 
     /**
@@ -60,7 +58,7 @@ class BienController extends Controller
     {
         $bien = Bien::findOrFail($id);
 
-        return view('bien.show', compact('bien'));
+        return view('user.bien.showBien', compact('bien'));
     }
 
     /**
@@ -73,7 +71,7 @@ class BienController extends Controller
     {
         $bien = Bien::findOrFail($id);
 
-        return view('bien.edit', compact('bien'));
+        return view('user.bien.updateBien', compact('bien'));
     }
 
     /**
@@ -97,7 +95,7 @@ class BienController extends Controller
 
         Bien::whereId($id)->update($validatedData);
 
-        return redirect()->route('bien.index')->with('success', 'Bien updated successfully.');
+        return redirect()->route('user.bienes')->with('success', 'Bien updated successfully.');
     }
 
     /**
@@ -110,6 +108,6 @@ class BienController extends Controller
     {
         Bien::destroy($id);
 
-        return redirect()->route('bien.index')->with('success', 'Bien deleted successfully.');
+        return redirect()->route('user.bienes')->with('success', 'Bien deleted successfully.');
     }
 }
