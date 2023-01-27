@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bien;
+use App\Models\Category;
+use App\Models\Images;
 use Illuminate\Http\Request;
 
 class BienController extends Controller
@@ -25,7 +27,8 @@ class BienController extends Controller
      */
     public function create()
     {
-        return view('user.bien.newBien');
+        $categories = Category::all();
+        return view('user.bien.newBien', compact('categories'));
     }
 
     /**
@@ -36,14 +39,36 @@ class BienController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+         $request->validate([
             'title' => 'required|max:255',
             'description' => 'required',
             'initialPrice' => 'required|numeric',
             'due_at' => 'required|date',
+            'category_id'=>'required|numeric',
+            'images.*' => 'required|image|mimes:jpeg,jpg,png|max:2048'
+        ]);
+        $bien =  Bien::create([
+            'category_id'=>$request->category_id,
+            'user_id'=> auth()->user()->id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'initialPrice' => $request->initialPrice,
+            'due_at' => $request->due_at,
         ]);
 
-        Bien::create($validatedData);
+
+        if ($request->hasFile('image')) {
+            //dd($request->image );
+            foreach($request->image as $image) {
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $image->move(public_path('bien_imgs'), $imageName);
+                $bien->images()->create([
+                    'link' => $imageName
+                ]);
+            }
+        }
+
+
 
         return redirect()->route('biens')->with('success', 'Bien created successfully.');
     }
@@ -70,8 +95,9 @@ class BienController extends Controller
     public function edit($id)
     {
         $bien = Bien::findOrFail($id);
+        $categories = Category::all();
 
-        return view('user.bien.updateBien', compact('bien'));
+        return view('user.bien.updateBien', compact('bien', 'categories'));
     }
 
     /**
@@ -108,5 +134,35 @@ class BienController extends Controller
         $bien->delete();
 
         return redirect()->route('biens')->with('success', 'Bien deleted successfully.');
+    }
+
+    public function approve(Request $request, $id){
+        $bien = Bien::findOrFail($id);
+        $bien->is_Approved = True;
+        return redirect()->route('biens')->with('success', 'Bien apprevé avec succes');
+    }
+
+    public function banner(Request $request, $id){
+        $bien = Bien::findOrFail($id);
+        $bien->is_Approved = False;
+        return redirect()->route('biens')->with('success', 'Bien banné avec succes');
+    }
+
+    public function activate(Request $request, $id){
+        $bien = Bien::findOrFail($id);
+        $bien->is_active = True;
+        return redirect()->route('biens')->with('success', 'Bien activé avec succes');
+    }
+
+    public function desactivate(Request $request, $id){
+        $bien = Bien::findOrFail($id);
+        $bien->is_active = False;
+        return redirect()->route('biens')->with('success', 'Bien désactivé avec succes');
+    }
+
+    public function setAsSod(Request $request, $id){
+        $bien = Bien::findOrFail($id);
+        $bien->is_sold = true;
+        return redirect()->route('biens')->with('success', 'Bien déclaré comee etant vondue');
     }
 }

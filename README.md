@@ -67,14 +67,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 //profile
-    //update general info
-    //update password
     //update image
-//categories
-    //list categories
-    //add category
-    //update category
-    //delete category
 //products
     //list products
         //list enabled products
@@ -82,23 +75,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
         //enable, disable product
         //list sold products
 
-    //add product
-    //show produxt
-    //update product
-    //delete product
     //enable product
     //disable product
-//users
-    //list users
-    //show user
-        //show info
-        //show earning
-        //show products
-            //show enabled products
-            //show disabled products
-    //esit users role
-    //enable user profile
-    //disable user profile
+    
 //auctions
     //list current auctions
     //list ended date auctions

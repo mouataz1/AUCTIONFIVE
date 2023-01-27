@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('bien_id')->constrained();
             $table->float('amount');
             $table->timestamps();
         });

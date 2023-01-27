@@ -16,7 +16,7 @@ Biens
     <div class="section">
         <div class="section-body">
 <div class="card">
-    <form action="{{route('storeBien')}}" method="POST">
+    <form action="{{route('storeBien')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="card-header">
             <h4>Ajouter un nouveau Bien</h4>
@@ -26,6 +26,14 @@ Biens
                 <div class="form-group col-md-6">
                     <label for="inputEmail4">Titre du bien</label>
                     <input type="text" name="title" class="form-control" id="inputEmail4" placeholder="titre" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputEmail4">Category</label>
+                    <select class="form-control" name="category_id" id="" required>
+                        @foreach ( $categories as $c)
+                            <option value="{{$c->id}}">{{$c->title}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="description">Description</label>
@@ -38,6 +46,10 @@ Biens
                 <div class="form-group col-md-6">
                     <label for="due_at">Date d'expiration</label>
                     <input type="date" name="due_at" class="form-control" id="due_at" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="due_at">Images</label>
+                    <input type="file" name="image[]" multiple class="form-control" id="due_at" required>
                 </div>
             </div>
         </div>

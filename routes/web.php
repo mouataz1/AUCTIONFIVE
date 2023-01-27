@@ -25,7 +25,7 @@ Route::get('/profile', [ProfileController::class, 'index']);
 
 
 
-Route::get('/users', [AdminController::class, 'users']);
+
 Route::get('/encheres', [AdminController::class, 'encheres']);
 
 Auth::routes();
@@ -57,7 +57,11 @@ Route::post('/categories/store', [CategoryController::class, 'store'])->name('st
 Route::get('/categories/etit/{id}', [CategoryController::class, 'edit'])->name('editCategory');
 Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('updateCategory');
 Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy'])->name('destroyCategory');
-//manage users and roles
+
+Route::get('/users', [AdminController::class, 'users'])->name('users');
+Route::get('/user/{id}', [AdminController::class, 'showUser'])->name('showUser');
+
+
 //manage auctions
 //statistics dashboard
 
@@ -74,6 +78,7 @@ Route::post('/bienes/store', [BienController::class, 'store'])->name('storeBien'
 Route::get('/bienes/edit/{id}', [BienController::class, 'edit'])->name('editBien');
 Route::post('/bienes/update/{id}', [BienController::class, 'update'])->name('updateBien');
 Route::get('/bienes/delete/{id}', [BienController::class, 'destroy'])->name('deleteBien');
+Route::get('/bienes/show/{id}', [BienController::class, 'show'])->name('showBien');
 
 
 

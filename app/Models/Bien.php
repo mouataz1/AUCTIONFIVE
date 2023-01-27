@@ -14,10 +14,13 @@ class Bien extends Model
      * @var array<int, string>
      */
     protected $fillable = [
+        'category_id',
+        'user_id',
         'title',
         'description',
         'initialPrice',
-        'due_at'
+        'due_at',
+        'images'
     ];
 
     public function category()

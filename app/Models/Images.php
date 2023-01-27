@@ -9,6 +9,8 @@ class Images extends Model
 {
     use HasFactory;
 
+    protected $guarded = [];
+
     public function bien(){
         return $this->belongsTo(Bien::class);
     }

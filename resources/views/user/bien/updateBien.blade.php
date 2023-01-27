@@ -28,6 +28,14 @@ Categories
                     <input type="text" name="title" class="form-control" id="inputEmail4" value="{{$bien->title}}" placeholder="titre" required>
                 </div>
                 <div class="form-group col-md-6">
+                    <label for="inputEmail4">Category</label>
+                    <select class="form-control" name="category_id" id="" required>
+                        @foreach ( $categories as $c)
+                            <option value="{{$c->id}}">{{$c->title}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
                     <label for="description">Description</label>
                     <textarea name="description" class="form-control" id="description"   required > {{$bien->description}}</textarea>
                 </div>

@@ -37,7 +37,6 @@ Bienes
                     #
                   </th>
                   <th>Titre</th>
-                  <th>Description</th>
                   <th>Date de création</th>
                   <th>Date de fin</th>
                   <th>Prix initiale</th>
@@ -49,10 +48,9 @@ Bienes
                 @foreach ($biens as $b )
                     <tr>
                   <td>
-                    1
+                    {{$b->id}}
                   </td>
                   <td>{{$b->title}}</td>
-                  <td>{{$b->description}}</td>
                   <td> {{ date('j F, Y', strtotime($b->created_at))}}</td>
                   <td>{{ date('j F, Y', strtotime($b->due_at))}}</td>
                   <td>{{$b->initialPrice}} DH</td>
@@ -73,7 +71,7 @@ Bienes
                     @endif
                   </td>
                   <td>
-                    <a href="#" class="btn btn-success">Afficher</a>
+                    <a href="{{route('showBien', $b->id)}}" class="btn btn-success">Afficher</a>
                     <a href="{{route('editBien', $b->id)}}" class="btn btn-warning">Modifier</a>
                     <a href="{{route('deleteBien', $b->id)}}" class="btn btn-danger">Suprimer</a>
                   </td>

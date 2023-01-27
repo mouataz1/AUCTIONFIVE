@@ -34,31 +34,30 @@ Utilisateurs
                   <th>Téléphone</th>
                   <th>Pays</th>
                   <th>Ville</th>
-                  <th>Role</th>
+
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                @foreach ($users as $u)
+                  <tr>
                   <td>
-                    1
+                    {{$u->id}}
                   </td>
-                  <td>Mouataz hakkou</td>
-                  <td>moataz.hakkou@gmail.com
+                  <td>{{$u->name}} {{$u->lname}}</td>
+                  <td>{{$u->email}}
                   </td>
-                  <td>0650536513</td>
-                  <td>Maroc</td>
-                  <td>Figuig</td>
+                  <td>{{$u->phone}}</td>
+                  <td>{{$u->country_code}}</td>
+                  <td>{{$u->city}}</td>
+
                   <td>
-                    <div class="badge badge-success">Admin</div>
-                  </td>
-                  <td>
-                    <a href="#" class="btn btn-success">Afficher</a>
-                    <a href="#" class="btn btn-warning">Modifier</a>
-                    <a href="#" class="btn btn-danger">Suprimer</a>
+                    <a href="{{route('showUser', $u->id)}}" class="btn btn-success">Afficher</a>
                   </td>
 
                 </tr>
+                @endforeach
+
               </tbody>
             </table>
           </div>

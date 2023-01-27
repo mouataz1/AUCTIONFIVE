@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('biens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->text('description');
             $table->float('initialPrice');
             $table->boolean('is_Approved')->default(false);
-            $table->boolean('is_sold')->default(false);
+            $table->boolean('')->default(false);
             $table->boolean('is_active')->default(false);
             $table->dateTime('due_at');
             $table->timestamps();
