@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('description');
             $table->float('initialPrice');
             $table->boolean('is_Approved')->default(false);
-            $table->boolean('')->default(false);
+            $table->boolean('is_sold')->default(false);
             $table->boolean('is_active')->default(false);
             $table->dateTime('due_at');
             $table->timestamps();

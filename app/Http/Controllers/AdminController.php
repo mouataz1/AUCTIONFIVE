@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
+    public function biens(){
+        $biens = Bien::all();
+        return view('admin.adminProducts', compact('biens'));
+    }
+
     public function users(){
         $users = User::all();
         return view('admin.users', compact('users'));

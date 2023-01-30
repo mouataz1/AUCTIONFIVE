@@ -16,6 +16,10 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (auth()->user()->role != 'ROLE_ADMIN') {
+            abort(403, 'Vous avez pad l\'acces a cette page.');
+        }
+
         return $next($request);
     }
 }

@@ -67,5 +67,9 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'client'=>\App\Http\Middleware\Client::class,
         'seller'=>\App\Http\Middleware\Seller::class,
+        //spatie middlewares
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class
     ];
 }

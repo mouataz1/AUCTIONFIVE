@@ -193,13 +193,17 @@
             <li class="dropdown">
               <a href="#" class="nav-link has-dropdown"><i class="fas fa-fire"></i><span>Dashboard</span></a>
             </li>
-            <li class="menu-header">Admin</li>
-            <li class="dropdown">
+            @if (auth()->user()->role === "ROLE_ADMIN")
+                <li class="dropdown">
               <a href="{{route('categories')}}" class="nav-link" ><i class="fas fa-columns"></i> <span>Categories</span></a>
-            </li>
-            <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Produits</span></a></li>
-            <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Utilisateurs</span></a></li>
-            <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Enchères</span></a></li>
+                </li>
+             <li><a class="nav-link" href="{{route('users')}}"><i class="far fa-square"></i> <span>Utilisateurs</span></a></li>
+                <li><a class="nav-link" href="{{route('adminBiens')}}"><i class="far fa-square"></i> <span>Toutes les Bien</span></a></li>
+                <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Enchères</span></a></li>
+            @endif
+
+            <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Mes Produits</span></a></li>
+
 
           </ul>
 

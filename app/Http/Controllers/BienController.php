@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bien;
 use App\Models\Category;
 use App\Models\Images;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BienController extends Controller
@@ -16,7 +17,9 @@ class BienController extends Controller
      */
     public function index()
     {
-        $biens = Bien::all();
+        $user = User::findOrFail(auth()->user()->id);
+        $biens = $user->biens;
+       //dd($biens);
         return view('user.bienes', compact('biens'));
     }
 
@@ -59,8 +62,10 @@ class BienController extends Controller
 
         if ($request->hasFile('image')) {
             //dd($request->image );
+
             foreach($request->image as $image) {
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $slug = rand(0, 100000);
+                $imageName = time() .$slug. '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('bien_imgs'), $imageName);
                 $bien->images()->create([
                     'link' => $imageName

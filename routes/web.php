@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BienController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,22 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/profile', [ProfileController::class, 'index']);
-
-
+Route::get('/', [HomeController::class, 'home']);
+Route::get('/shop', [HomeController::class, 'shop']);
+Route::get('/product/{id}', [HomeController::class, 'productDetails'])->name('productDetail');
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/product/{id}/auction', [HomeController::class, 'productDetails']);
 
 
-Route::get('/encheres', [AdminController::class, 'encheres']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name('updateProfile');
 Route::post('/profile/update/password/{id}', [ProfileController::class, 'updatePassword'])->name('updateProfilePassword');
+Route::get('/profile', [ProfileController::class, 'index']);
 
 
 
@@ -50,16 +48,24 @@ Route::post('/profile/update/password/{id}', [ProfileController::class, 'updateP
 | admin middleware
 |--------------------------------------------------------------------------
 */
+Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
+    Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
+    Route::get('/categories/new', [CategoryController::class, 'create'])->name('newCatPage');
+    Route::post('/categories/store', [CategoryController::class, 'store'])->name('storeCategory');
+    Route::get('/categories/etit/{id}', [CategoryController::class, 'edit'])->name('editCategory');
+    Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('updateCategory');
+    Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy'])->name('destroyCategory');
 
-Route::get('/categories', [CategoryController::class, 'index'])->name('categories');
-Route::get('/categories/new', [CategoryController::class, 'create'])->name('newCatPage');
-Route::post('/categories/store', [CategoryController::class, 'store'])->name('storeCategory');
-Route::get('/categories/etit/{id}', [CategoryController::class, 'edit'])->name('editCategory');
-Route::post('/categories/update/{id}', [CategoryController::class, 'update'])->name('updateCategory');
-Route::delete('categories/delete/{id}', [CategoryController::class, 'destroy'])->name('destroyCategory');
+    Route::get('/users', [AdminController::class, 'users'])->name('users');
+    Route::get('/user/{id}', [AdminController::class, 'showUser'])->name('showUser');
 
-Route::get('/users', [AdminController::class, 'users'])->name('users');
-Route::get('/user/{id}', [AdminController::class, 'showUser'])->name('showUser');
+    Route::get('admin/biens', [AdminController::class, 'biens'])->name('adminBiens');
+
+    Route::get('/encheres', [AdminController::class, 'encheres']);
+});
+
+
+
 
 
 //manage auctions
