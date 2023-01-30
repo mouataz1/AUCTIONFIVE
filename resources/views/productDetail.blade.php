@@ -65,18 +65,23 @@
                                 <a href="#" class="cart-btn"><span class=""></span> Valider</a>
                                 @else
                                     <h3 class="text-warning">Date éxpiré</h3>
+                                    <p>Malhereusement la date limite d'enchérer a ce produit et éxpiré</p>
                                 @endif
 
                             </div>
 
 
                         </div>
+                        @if($product->due_at >  Carbon\Carbon::today())
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">La date limite d'enchérer dans</h4>
                             <p>{{ date('j F, Y', strtotime($product->due_at))}}</p>
                             <hr>
 
                           </div>
+                        @endif
+
+
 
                     </div>
                 </div>
