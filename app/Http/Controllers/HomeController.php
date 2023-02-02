@@ -40,6 +40,19 @@ class HomeController extends Controller
 
     public function productDetails(Request $request, $id){
         $product = Bien::findOrFail($id);
-        return view('productDetail', compact('product'));
+
+        $bienPrices = $product->prices;
+        $biggest = $product->initialPrice;
+        if($bienPrices){
+            $prices = [];
+            foreach($bienPrices as $price){
+            array_push($prices, $price->amount);
+            $biggest = max($prices);
+        }
+        }else{
+            $biggest = $$product->initialPrice;
+        }
+
+        return view('productDetail', compact('product', 'biggest'));
     }
 }

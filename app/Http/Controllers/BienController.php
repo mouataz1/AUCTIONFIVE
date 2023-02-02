@@ -64,7 +64,7 @@ class BienController extends Controller
             //dd($request->image );
 
             foreach($request->image as $image) {
-                $slug = rand(0, 100000);
+                $slug = rand(0, 100000); 
                 $imageName = time() .$slug. '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('bien_imgs'), $imageName);
                 $bien->images()->create([

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AuctionController;
 use App\Http\Controllers\BienController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
@@ -32,6 +33,8 @@ Route::post('/profile/update/{id}', [ProfileController::class, 'update'])->name(
 Route::post('/profile/update/password/{id}', [ProfileController::class, 'updatePassword'])->name('updateProfilePassword');
 Route::get('/profile', [ProfileController::class, 'index']);
 
+
+Route::post('/auction/product/{id}', [AuctionController::class, 'addPrice'])->name('addprice');
 
 
 

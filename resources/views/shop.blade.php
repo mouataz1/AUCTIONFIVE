@@ -76,6 +76,8 @@
                                         <li><a href="#"><span class="icon_bag_alt"></span></a></li>
                                     </ul>
                                 </div>
+
+
                                 <div class="product__item__text">
                                     <h6><a href="#">{{$b->title}}</a></h6>
                                     <p>0 Prix Proposé</p>
