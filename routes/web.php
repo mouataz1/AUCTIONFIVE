@@ -24,6 +24,8 @@ Route::get('/shop', [HomeController::class, 'shop']);
 Route::get('/product/{id}', [HomeController::class, 'productDetails'])->name('productDetail');
 //Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/product/{id}/auction', [HomeController::class, 'productDetails']);
+Route::get('/shop/category/{id}', [HomeController::class, 'productsByCategory'])->name('shopByCat');
+
 
 
 

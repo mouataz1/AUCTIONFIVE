@@ -38,6 +38,13 @@ class HomeController extends Controller
         return view('shop', compact('biens', 'categories'));
     }
 
+    public function productsByCategory($id){
+        $categories = Category::all();
+        $cat = Category::findOrFail($id);
+        $biens = $cat->bienes;
+        return view('shopByCat', compact('categories', 'biens'));
+    }
+
     public function productDetails(Request $request, $id){
         $product = Bien::findOrFail($id);
 
