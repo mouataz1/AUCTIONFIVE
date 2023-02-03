@@ -55,7 +55,7 @@ Bien | Enchérer
 
                     <div class="product__details__price">{{$product->initialPrice}} MAD</div>
                     <div class="alert alert-warning">
-                        <p>Le dernier Propoder est : {{$biggest}} MAD</p>
+                        <p>Le dernier Proposé est : {{$biggest}} MAD</p>
                     </div>
                     <p>{{$product->description}}</p>
                     <div class="product__details__button">

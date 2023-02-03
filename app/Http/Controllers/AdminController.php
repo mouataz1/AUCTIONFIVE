@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Bien;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -26,6 +28,8 @@ class AdminController extends Controller
     }
 
     public function encheres(){
-        return view('admin.encheres');
+        $today = new DateTime();
+        $encheres = Bien::whereDate('due_at', $today)->get();
+        return view('admin.encheres', compact('encheres'));
     }
 }

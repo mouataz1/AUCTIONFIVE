@@ -8,7 +8,7 @@
 @endsection
 
 @section('title')
-Utilisateurs
+Enchères
 @endsection
 
 @section('main')
@@ -31,30 +31,33 @@ Utilisateurs
                   </th>
                   <th>Titre</th>
                   <th>Publier Le</th>
-                  <th>Publier Par</th>
+
                   <th>Términer le</th>
                   <th>Etat</th>
                   <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                @foreach ( $encheres as $en)
+                 <tr>
                   <td>
-                    1
+                    {{$en->id}}
                   </td>
-                  <td>Semi remorque volvo</td>
-                  <td>11/11/2022</td>
-                  <td>moataz hakkou</td>
-                  <td>24/01/2023</td>
+                  <td>{{$en->title}}</td>
+                  <td>{{ date('j F, Y', strtotime($en->created_at))}}</td>
+
+                  <td>{{ date('j F, Y', strtotime($en->due_at))}}</td>
                   <td>En attent</td>
 
                   <td>
-                    <a href="#" class="btn btn-success">Afficher</a>
+                    <a href="{{route('showBien', $en->id)}}" class="btn btn-success">Afficher</a>
                     <a href="#" class="btn btn-warning">Valider</a>
                     <a href="#" class="btn btn-danger">Rejeter</a>
                   </td>
 
                 </tr>
+                @endforeach
+
               </tbody>
             </table>
           </div>

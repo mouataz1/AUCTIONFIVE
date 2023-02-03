@@ -199,7 +199,7 @@
                 </li>
              <li><a class="nav-link" href="{{route('users')}}"><i class="far fa-square"></i> <span>Utilisateurs</span></a></li>
                 <li><a class="nav-link" href="{{route('adminBiens')}}"><i class="far fa-square"></i> <span>Toutes les Bien</span></a></li>
-                <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Enchères</span></a></li>
+                <li><a class="nav-link" href="{{route('encheres')}}"><i class="far fa-square"></i> <span>Enchères</span></a></li>
             @endif
 
             <li><a class="nav-link" href="{{route('biens')}}"><i class="far fa-square"></i> <span>Mes Produits</span></a></li>

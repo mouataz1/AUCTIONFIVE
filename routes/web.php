@@ -66,7 +66,7 @@ Route::prefix('admin')->middleware(['admin', 'auth'])->group(function () {
 
     Route::get('admin/biens', [AdminController::class, 'biens'])->name('adminBiens');
 
-    Route::get('/encheres', [AdminController::class, 'encheres']);
+    Route::get('/encheres', [AdminController::class, 'encheres'])->name('encheres');
 });
 
 

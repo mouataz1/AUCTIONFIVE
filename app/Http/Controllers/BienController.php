@@ -64,7 +64,7 @@ class BienController extends Controller
             //dd($request->image );
 
             foreach($request->image as $image) {
-                $slug = rand(0, 100000); 
+                $slug = rand(0, 100000);
                 $imageName = time() .$slug. '.' . $image->getClientOriginalExtension();
                 $image->move(public_path('bien_imgs'), $imageName);
                 $bien->images()->create([
@@ -87,8 +87,23 @@ class BienController extends Controller
     public function show($id)
     {
         $bien = Bien::findOrFail($id);
+        $users = User::all();
 
-        return view('user.bien.showBien', compact('bien'));
+        $bienPrices = $bien->prices;
+
+
+        $biggest = $bien->initialPrice;
+        if($bienPrices){
+            $prices = [];
+            foreach($bienPrices as $price){
+            array_push($prices, $price->amount);
+            $biggest = max($prices);
+        }
+        }else{
+            $biggest = $$bien->initialPrice;
+        }
+
+        return view('user.bien.showBien', compact('bien', 'bienPrices', 'users'));
     }
 
     /**

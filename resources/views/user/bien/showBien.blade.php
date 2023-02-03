@@ -83,9 +83,17 @@ Bien Details
                                     </div>
                                     <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
                                      <ul class="list-group">
-                                        <li class="list-item">125 dh par mouad le <span class="text-success">21/01/2023</span></li>
-                                        <li class="list-item">125 dh par mouataz le <span class="text-danger">21/01/2023</span></li>
-                                        <li class="list-item">125 dh par abdo le <span class="text-danger">21/01/2023</span></li>
+                                        @foreach ($bienPrices as $bp )
+                                            <li class="list-item">{{$bp->amount}} dh par
+                                                 @foreach ($users as $u)
+                                                    @if ($u->id == $bp->user_id)
+                                                        {{$u->name}} {{$u->lname}}
+                                                    @endif
+                                                 @endforeach
+                                                  le <span class="text-success">{{ date('j F, Y', strtotime($bp->created_at))}}</span></li>
+                                        @endforeach
+
+
                                      </ul>
                                     </div>
                                   </div>
